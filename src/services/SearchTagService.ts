@@ -1,7 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { TagsRepositories } from "../repositories/TagsRepositories";
 
-
 class SearchTagService {
     async execute(name: string) {
         const tagsRepositories = getCustomRepository(TagsRepositories);
@@ -13,7 +12,7 @@ class SearchTagService {
             where: { name }
         });
 
-        if(!tag){
+        if(tag.length === 0){
             throw new Error('Wrong tag name');
         };
 
