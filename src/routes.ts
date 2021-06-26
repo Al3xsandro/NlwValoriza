@@ -40,7 +40,7 @@ router.post('/login', authenticateUserController.handle);
 router.post('/tags', ensureAuthenticated, ensureAdmin, createTagController.handle);
 router.post('/compliments', ensureAuthenticated, createComplimentController.handle);
 
-router.get('/tags/search/:name', ensureAuthenticated, searchTagController.handle);
+router.get('/tags/:name', ensureAuthenticated, searchTagController.handle);
 router.post('/tags/delete', ensureAuthenticated, ensureAdmin, deleteTagController.handle);
 
 router.get('/tags', ensureAuthenticated, listTagsController.handle);
