@@ -5,6 +5,10 @@ class DeleteTagService {
     async execute(id: string) {
         const tagsRepositories = getCustomRepository(TagsRepositories);
 
+        if(!id){
+            throw new Error('Incorrect id');
+        };
+
         const tagExists = await tagsRepositories.findOne({ id })
         
         if(!tagExists){

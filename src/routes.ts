@@ -12,6 +12,7 @@ import { ListUserSendComplimentsController } from "./controllers/ListUserSendCom
 import { ListUserReceiverComplimentsController } from "./controllers/ListUserReceiverComplimentsController";
 import { ListTagsController } from "./controllers/ListTagsController";
 import { DeleteTagController } from "./controllers/DeleteTagController";
+import { SearchTagController } from "./controllers/SearchTagController";
 
 // Middlewares
 import { ensureAdmin } from "./middlewares/ensureAdmin";
@@ -25,6 +26,7 @@ const authenticateUserController = new AuthenticateUserController();
 const createComplimentController = new CreateComplimentController();
 const listUsersController = new ListUsersController();
 const deleteTagController = new DeleteTagController();
+const searchTagController = new SearchTagController();
 
 const listTagsController = new ListTagsController();
 const listUserSendComplimentsController = new ListUserSendComplimentsController();
@@ -37,6 +39,8 @@ router.post('/login', authenticateUserController.handle);
 
 router.post('/tags', ensureAuthenticated, ensureAdmin, createTagController.handle);
 router.post('/compliments', ensureAuthenticated, createComplimentController.handle);
+
+router.get('/tags/search/:name', ensureAuthenticated, searchTagController.handle);
 router.post('/tags/delete', ensureAuthenticated, ensureAdmin, deleteTagController.handle);
 
 router.get('/tags', ensureAuthenticated, listTagsController.handle);

@@ -2,12 +2,22 @@ import { TagsRepositories } from "../repositories/TagsRepositories";
 
 
 class SearchTagService {
-    async execute(id: string) {
+    async execute(nameCustom: string) {
         const tagsRepositories = new TagsRepositories();
 
-        const tagExists = tagsRepositories.findOne({ id });
+        if(!nameCustom){
+            throw new Error('Incorrect name');
+        };
 
+        const tagExists = await tagsRepositories.findOne({ nameCustom });
 
+        if(!tagExists){
+            throw new Error('Wrong name');
+        };
+
+        const tag = await tagsRepositories.find({ nameCustom });
+        
+        return tag;
     }
 };
 
