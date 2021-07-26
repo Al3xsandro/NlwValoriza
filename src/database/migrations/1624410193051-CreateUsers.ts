@@ -26,6 +26,11 @@ export class CreateUsers1624410193051 implements MigrationInterface {
                         default: false // se eu não inserir alguma informação, isso vai ser false.
                     },
                     {
+                        name: "refresh_token",
+                        type: "varchar",
+                        isNullable: true
+                    },
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()"
