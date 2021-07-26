@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { UsersRepositories } from "../repositories/UserRepositories";
+import { GenerateRefreshTokenService } from "./GenerateRefreshTokenService";
 
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
@@ -39,7 +40,10 @@ class AuthenticateUserService {
         expiresIn: '1d'
     });
 
-    return token;
+    const generateRefreshToken = new GenerateRefreshTokenService();
+    const refreshToken = await generateRefreshToken.execute(user.id);
+
+    return { token, refreshToken };
   };
 };
 
