@@ -3,9 +3,9 @@ import { UsersRepositories } from "../repositories/UserRepositories";
 import { GenerateRefreshTokenService } from "./GenerateRefreshTokenService";
 
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
 
 import * as dotenv from 'dotenv';
+import { GenerateJwtToken } from "../utils/GenerateJwtToken";
 dotenv.config();
 
 interface IAuthenticateRequest {
@@ -31,14 +31,9 @@ class AuthenticateUserService {
         throw new Error('Email/Password incorrect!');
     };
 
-    const token = sign({
-        email: user.email,
-    }, 
-    process.env.JWT_TOKEN,
-    {
-        subject: user.id,
-        expiresIn: '1d'
-    });
+    const generate = new GenerateJwtToken();
+    
+    const token = await generate.execute(user.id, user.email);
 
     const generateRefreshToken = new GenerateRefreshTokenService();
     const refreshToken = await generateRefreshToken.execute(user.id);
