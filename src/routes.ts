@@ -18,6 +18,7 @@ import { SearchTagController } from "./controllers/SearchTagController";
 import { ensureAdmin } from "./middlewares/ensureAdmin";
 import { ensureAuthenticated } from "./middlewares/ensureAuthentication";
 import { ListUsersController } from "./controllers/ListUsersController";
+import { RefreshTokenController } from "./controllers/RefreshTokenController";
 
 // Class
 const createUserController = new CreateUserController();
@@ -31,6 +32,8 @@ const searchTagController = new SearchTagController();
 const listTagsController = new ListTagsController();
 const listUserSendComplimentsController = new ListUserSendComplimentsController();
 const listUserReceiverComplimentsController = new ListUserReceiverComplimentsController();
+
+const refreshToken = new RefreshTokenController();
 
 // Routes
 router.get('/users', ensureAuthenticated, ensureAdmin, listUsersController.handle);
@@ -46,5 +49,7 @@ router.post('/tags/delete', ensureAuthenticated, ensureAdmin, deleteTagControlle
 router.get('/tags', ensureAuthenticated, listTagsController.handle);
 router.get('/users/compliments/send', ensureAuthenticated, listUserSendComplimentsController.handle);
 router.get('/users/compliments/receiver', ensureAuthenticated, listUserReceiverComplimentsController.handle);
+
+router.post('/users/refresh-token', ensureAuthenticated, refreshToken.handle);
 
 export { router };
