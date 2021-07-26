@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 class GenerateJwtToken {
-    async execute(userId: string, userEmail: string) {
+    async execute(userId: string, userEmail?: string) {
         const token = sign({
             email: userEmail
         }, 
